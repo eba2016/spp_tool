@@ -205,6 +205,23 @@ View the modified SPP documentation: http://code.google.com/p/phantompeakqualtoo
 
 ------
 
+**Output**
+
+The column names of narrow- and region- peaks datasets (computed by **Peak calling** sub command) are provided below:
+
+- col 1: chrom
+- col 2: start
+- col 3: end
+- col 4: name
+- col 5: score
+- col 6: strand
+- col 7: signalValue
+- col 8 : -1
+- col 9: -log10(fdr)
+- col 10: Point-source called for this peak.
+
+-----
+
 **Citation**
 
 Anshul Kundaje, Computer Science Dept., Stanford University, ENCODE Consortium, Personal Communication, Oct 2010
