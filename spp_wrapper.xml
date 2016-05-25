@@ -18,7 +18,6 @@ import simplejson
 ##=============================================================================
 #if str($major_command.major_command_selector) == 'cross_correlation':
 	#set $__options['action'] = str( "cross_correlation" )
- 	#set $__options['rf'] = str( $major_command.replace )
 
 	#set $__options['out'] = str( $major_command.save_peakshift_file )
 	#set $__options['savp'] = str( $major_command.save_plot_file ) 
@@ -28,7 +27,6 @@ import simplejson
 	#set $__options['action'] = str( "peak_calling" )
 	#set $__options['fdr'] = str( $major_command.fdr )
 	#set $__options['npeak'] = str( $major_command.num_peaks )	
- 	#set $__options['rf'] = str( $major_command.replace )
 
 	#set $__options['savr'] = str( $major_command.save_regionpeak_file )
 	#set $__options['savd'] = str( $major_command.save_rdata_file )
@@ -39,7 +37,6 @@ import simplejson
 #if str($major_command.major_command_selector) == 'idr':
 	#set $__options['action'] = str( "idr" ) 
 	#set $__options['npeak'] = int( $major_command.num_peaks  )
-	#set $__options['rf'] = str( $major_command.replace )
 
 	#set $__options['savr'] = str( $major_command.save_regionpeak_file )
 	#set $__options['out'] = str( $major_command.save_peakshift_file )
@@ -52,7 +49,6 @@ import simplejson
         #set $__options['x'] = str( $major_command.excluded_strand_shift  )
         #set $__options['npeak'] = int( $major_command.num_peaks )
         #set $__options['fdr'] = int( $major_command.fdr  )
-        ##set $__options['rf'] = str( $major_command.replace )
 
 	#if str($major_command.user_defined_strpeak) == '':
         	#set $__options['speak'] = str( $major_command.user_defined_strpeak )
@@ -94,7 +90,6 @@ ${ simplejson.dumps( __options ) }
     	<param name="input_chipseq_file1" type="data" format="bam" label="ChIP-Seq Tag File" />
     	<param name="input_control_file1" type="data" format="bam" optional="True" label="ChIP-Seq Control File" />
 
-	<!--param name="replace" truevalue="-rf" falsevalue="" type="boolean" checked="True" label="Replace existing plot, Rdata, or narrowpeak file (execution aborts if file exists and option not enabled)" help="(-rf)"/-->
 
 	<param name="save_peakshift_file" truevalue="-out=peakshift.txt" falsevalue="" type="boolean" checked="True" label="Save peakshift file" help="(-out)"/>
 	<param name="save_plot_file" truevalue="-savp" falsevalue="" type="boolean" checked="True" label="Save plot file" help="(-savp)"/>
@@ -106,7 +101,6 @@ ${ simplejson.dumps( __options ) }
 
 	<param name="fdr" type="text" label="False discovery rate threshold" value="0" help="default=0 (-fdr)"/>
 	<param name="num_peaks" type="text" label="Threshold on number of peaks to call" value="0" help="default=0 (-npeak)"/>
-	<!--param name="replace" truevalue="-rf" falsevalue="" type="boolean" checked="True" label="Replace existing plot, Rdata, or narrowpeak file (execution aborts if file exists and option not enabled)" help="(-rf)"/-->
 
 	<param name="save_regionpeak_file" truevalue="-savr" falsevalue="" type="boolean" checked="True" label="Save regionpeak file " help="(-savr)"/>   
 	<param name="save_rdata_file" truevalue="-savd" falsevalue="" type="boolean" checked="True" label="Save Rdata file" help="(-savd)"/>
@@ -119,7 +113,6 @@ ${ simplejson.dumps( __options ) }
     	<param name="input_control_file1" type="data" format="bam" label="ChIP-Seq Control File" />
 	
 	<param name="num_peaks" type="integer" label="Threshold on number of peaks to call" value="300000" help="default=300000 (-npeak)"/>
-	<!--param name="replace" truevalue="-rf" falsevalue="" type="boolean" checked="True" label="Replace existing plot, Rdata, or narrowpeak file (execution aborts if file exists and option not enabled)" help="(-rf)"/-->
 
 	<param name="save_regionpeak_file" truevalue="-savr" falsevalue="" type="boolean" checked="True" label="Save regionpeak file" help="(-savr)"/>   
 	<param name="save_peakshift_file" truevalue="-out=peakshift.txt" falsevalue="" type="boolean" checked="True" label="Save peakshift file" help="(-out)"/>
@@ -136,7 +129,6 @@ ${ simplejson.dumps( __options ) }
 	<param name="num_peaks" type="integer" label="Threshold on number of peaks to call" value="0" help="default=0 (-npeak)"/>
 	<param name="fdr" type="integer" label="False discovery rate threshold" value="0" help="default=0 (-fdr)"/>
 	<param name="filter_char" type="text" label="Pattern to use to remove tags that map to specific chromosomes" help="(-filtchr)"/>
-	<!--param name="replace" truevalue="-rf" falsevalue="" type="boolean" checked="False" label="Replace existing plot, Rdata, or narrowpeak file (execution aborts if file exists and option not enabled)" help="(-rf)"/-->
 
 	<param name="save_regionpeak_file" truevalue="-savr" falsevalue="" type="boolean" checked="False" label="Save regionpeak file" help="(-savr)"/>   
 	<param name="save_peakshift_file" truevalue="-out=peakshift.txt" falsevalue="" type="boolean" checked="False" label="Save peakshift file" help="(-out)"/>
