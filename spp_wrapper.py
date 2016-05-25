@@ -12,6 +12,7 @@ import simplejson
 CHUNK_SIZE = 1024
 
 def main():
+    tmp_dir=os.getcwd()
     options = simplejson.load( open( sys.argv[1] ) )
     output_narrow_peak = sys.argv[2]
     output_region_peak = sys.argv[3]
@@ -25,12 +26,12 @@ def main():
     #======================================================================================    
     experiment_name = '_'.join( options['experiment_name'].split() ) #save experiment name
 
-    chip_file = "%s.bam" % (options['chip_file'])
+    chip_file = "%s/chip.bam" % (tmp_dir)
     subprocess.call(["cp", options['chip_file'], chip_file])
 
     cmdline = "Rscript %s/run_spp.R -c=%s" % (script_path, chip_file )
     if 'input_file' in options:
-        input_file = "%s.bam" % (options['input_file'])
+        input_file = "%s/input.bam" % (tmp_dir)
         subprocess.call(["cp", options['input_file'], input_file])
         cmdline = "%s -i=%s" % ( cmdline, input_file )
     else : 
@@ -40,19 +41,19 @@ def main():
     #set additional options
     #========================================================================================
     if (options['action'] == "cross_correlation"):
-        cmdline = "%s %s %s > default_output.txt" % ( cmdline, options['savp'], options['out']) 
+        cmdline = "%s %s %s > %s/default_output.txt" % ( cmdline, options['savp'], options['out'], tmp_dir) 
     elif (options['action'] == "peak_calling"):
-        cmdline = "%s -fdr=%s -npeak=%s %s %s %s %s > default_output.txt" % ( cmdline, options['fdr'], options['npeak'], options['savr'], options['savd'], options['savn'], options['savp']) 
+        cmdline = "%s -fdr=%s -npeak=%s %s %s %s %s > %s/default_output.txt" % ( cmdline, options['fdr'], options['npeak'], options['savr'], options['savd'], options['savn'], options['savp'], tmp_dir) 
     elif (options['action'] == "idr"):
-        cmdline = "%s -npeak=%s %s %s %s > default_output.txt" % ( cmdline, options['npeak'], options['savr'], options['savp'], options['out'])
+        cmdline = "%s -npeak=%s %s %s %s > %s/default_output.txt" % ( cmdline, options['npeak'], options['savr'], options['savp'], options['out'], tmp_dir)
     elif (options['action'] == "custom"):
-        cmdline = "%s -s=%s %s -x=%s -fdr=%s -npeak=%s %s " % ( cmdline, options['s'], options['speak'], options['x'], options['fdr'], options['npeak']), options['filtchr'])
-        cmdline = "%s %s  %s %s %s %s > default_output.txt" % ( cmdline, options['out'], options['savn'], options['savr'], options['savp'], options['savd'] )
+        cmdline = "%s -s=%s %s -x=%s -fdr=%s -npeak=%s %s " % ( cmdline, options['s'], options['speak'], options['x'], options['fdr'], options['npeak'], options['filtchr'])
+        cmdline = "%s %s  %s %s %s %s > %s/default_output.txt" % ( cmdline, options['out'], options['savn'], options['savr'], options['savp'], options['savd'], tmp_dir)
 
     #run cmdline
     #========================================================================================
     #tmp_dir = tempfile.mkdtemp()
-    tmp_dir = os.path.dirname(options['chip_file'])
+    #tmp_dir = os.path.dirname(options['chip_file'])
     stderr_name = tempfile.NamedTemporaryFile().name
     proc = subprocess.Popen( args=cmdline, shell=True, cwd=tmp_dir, stderr=open( stderr_name, 'wb' ) )
     proc.wait()
