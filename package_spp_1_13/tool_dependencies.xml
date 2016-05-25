@@ -1,0 +1,17 @@
+<tool_dependency>
+	<package name="R" version="3.1.2">
+		<repository name="package_r_3_1_2" owner="iuc" prior_installation_required="True" /></package>
+	<package name="spp" version="1.13">
+		<install version="1.0">
+			<actions>
+				<action type="setup_r_environment">
+					<repository name="package_r_3_1_2" owner="iuc">
+						<package name="R" version="3.1.2" /> </repository>
+						<package>https://cran.r-project.org/src/contrib/bitops_1.0-6.tar.gz</package>
+						<package>https://cran.r-project.org/src/contrib/caTools_1.17.1.tar.gz</package>
+						<package>https://github.com/hms-dbmi/spp/archive/1.13.tar.gz</package>
+				</action>
+			</actions>
+		</install>
+	</package>
+</tool_dependency>
